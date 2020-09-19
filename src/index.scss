@@ -1,0 +1,78 @@
+@import './assets/reset.scss';
+// @fontface
+@font-face {
+  font-family: 'airglyphs';
+  src: url('./assets/fonts/circular/airglyphs.woff2') format('woff2'),
+    url('./assets/fonts/circular/airglyphs.woff') format('woff'),
+    url('./assets/fonts/circular/airglyphs.svg#airglyphs') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circular Air';
+  src: url('./assets/fonts/circular/CircularAir-Bold.woff2') format('woff2'),
+    url('./assets/fonts/circular/CircularAir-Bold.woff') format('woff'),
+    url('./assets/fonts/circular/CircularAir-Bold.svg#CircularAir-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circular Air';
+  src: url('./assets/fonts/circular/CircularAir-Light.woff2') format('woff2'),
+    url('./assets/fonts/circular/CircularAir-Light.woff') format('woff'),
+    url('./assets/fonts/circular/CircularAir-Light.svg#CircularAir-Light') format('svg');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Circular Air Book';
+  src: url('./assets/fonts/circular/CircularAir-Book.woff2') format('woff2'),
+    url('./assets/fonts/circular/CircularAir-Book.woff') format('woff'),
+    url('./assets/fonts/circular/CircularAir-Book.svg#CircularAir-Book') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+// colors
+$primary: #e94959;
+$secondary: #3ab137;
+$background: #eeeeee;
+$text: rgb(14, 14, 14);
+
+body {
+  margin: 0;
+  font-family: 'Circular Air Book', sans, roboto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  input,
+  button,
+  textarea {
+    outline: none;
+    &:focus,
+    &:active {
+      outline: none;
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  background: $background;
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: darken($background, 20%);
+  border-radius: 10px;
+  width: 10px;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}

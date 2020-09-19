@@ -1,0 +1,27 @@
+@import '../../index.scss';
+
+#postContent {
+  padding: 1rem;
+  width: 100%;
+  header,
+  article {
+    display: flex;
+    align-items: center;
+    h1,
+    p {
+      margin-top: 0 !important;
+      align-self: flex-start;
+    }
+    svg {
+      margin-right: 10px;
+      color: $secondary;
+      opacity: 0.6;
+      transition: 0.5s ease all;
+      &:hover {
+        opacity: 1;
+        transition: 0.5s ease all;
+        cursor: poitner;
+      }
+    }
+  }
+}

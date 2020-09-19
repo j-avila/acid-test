@@ -1,0 +1,40 @@
+@font-face {
+    font-family: 'airglyphs';
+    src: url('airglyphs.woff2') format('woff2'),
+        url('airglyphs.woff') format('woff'),
+        url('airglyphs.svg#airglyphs') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Circular Air';
+    src: url('CircularAir-Bold.woff2') format('woff2'),
+        url('CircularAir-Bold.woff') format('woff'),
+        url('CircularAir-Bold.svg#CircularAir-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Circular Air';
+    src: url('CircularAir-Light.woff2') format('woff2'),
+        url('CircularAir-Light.woff') format('woff'),
+        url('CircularAir-Light.svg#CircularAir-Light') format('svg');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Circular Air Book';
+    src: url('CircularAir-Book.woff2') format('woff2'),
+        url('CircularAir-Book.woff') format('woff'),
+        url('CircularAir-Book.svg#CircularAir-Book') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

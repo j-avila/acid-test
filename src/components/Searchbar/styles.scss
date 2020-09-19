@@ -1,0 +1,20 @@
+@import '../../index.scss';
+
+#searchbar {
+  display: flex;
+  background: darken($background, 20%);
+  padding: 0.6rem 1rem;
+  border-radius: 28px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  input {
+    background: transparent;
+    border: 0;
+    margin-left: 6px;
+    width: 100%;
+    &:focus {
+      border: 0;
+    }
+  }
+}
