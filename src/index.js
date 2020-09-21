@@ -3,12 +3,19 @@ import ReactDOM from 'react-dom'
 import './index.scss'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
+// import { typeDefs } from './queries/resolvers'
+// import { cache } from './cache'
 
+const cache = new InMemoryCache()
 const baseURL = process.env.REACT_APP_API_URL
+
 const client = new ApolloClient({
   uri: baseURL,
-  cache: new InMemoryCache(),
+  cache,
+  onError: (e) => {
+    console.log(e)
+  },
 })
 
 ReactDOM.render(

@@ -1,0 +1,7 @@
+@import '../../index.scss';
+
+#loader {
+  margin: 25vh auto;
+  color: lighten($text, 60%);
+  font-size: xx-large;
+}

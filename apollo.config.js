@@ -1,6 +1,6 @@
 module.exports = {
   client: {
-    name: 'Space Explorer [web]',
-    service: 'PASTE_YOUR_GRAPH_NAME_HERE',
+    name: 'acidnotes',
+    service: process.env.REACT_APP_API_URL,
   },
 }

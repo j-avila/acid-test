@@ -15,7 +15,7 @@ export default class PostContent extends Component {
       editable: '',
       postForm: {
         title: '',
-        content: '',
+        body: '',
       },
       initialData: {},
     }
@@ -107,13 +107,23 @@ export default class PostContent extends Component {
             <textarea
               rows='10'
               cols='50'
-              defaultValue={postForm.content}
-              onChange={(e) => this.handleInput('content', e)}
+              defaultValue={postForm.body}
+              onChange={(e) => this.handleInput('body', e)}
             ></textarea>
           ) : (
-            <p>{postForm.content}</p>
+            <p>{postForm.body}</p>
           )}
         </article>
+        <button
+          onClick={() =>
+            this.props.action({
+              variables: { input: { title: postForm.title, body: postForm.body } },
+            })
+          }
+        >
+          {' '}
+          guardar
+        </button>
       </div>
     )
   }

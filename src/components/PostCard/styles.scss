@@ -10,11 +10,13 @@
   h4 {
     font-size: large;
     margin-bottom: 4px;
+    text-align: left;
     &:first-letter {
       text-transform: uppercase;
     }
   }
   p {
+    text-align: left;
     font-size: medium;
     color: lighten($text, 60%);
     font-family: 'Circular Air';

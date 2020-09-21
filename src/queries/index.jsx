@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export const GET_POSTS = gql`
-  query($options: PageQueryOptions) {
+  query getPosts($options: PageQueryOptions) {
     posts(options: $options) {
       data {
         id
@@ -11,5 +11,21 @@ export const GET_POSTS = gql`
         totalCount
       }
     }
+  }
+`
+
+export const CREATE_POST = gql`
+  mutation CreatePost($input: CreatePostInput!) {
+    createPost(input: $input) {
+      id
+      title
+      body
+    }
+  }
+`
+
+export const DELETE_POST = gql`
+  mutation deletePost($id: String!) {
+    deletePost(id: $id)
   }
 `

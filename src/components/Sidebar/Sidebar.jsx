@@ -22,7 +22,7 @@ export default class Sidebar extends Component {
             posts.map((post) => (
               <PostCard
                 key={post.id}
-                id={post.id}
+                id={Number(post.id)}
                 title={post.title}
                 desc={post.description}
               />
