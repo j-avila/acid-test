@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useQuery, useMutation } from '@apollo/client'
-import { GET_POSTS, CREATE_POST } from '../../queries'
+import { GET_POSTS, CREATE_POST, GET_POST } from '../../queries'
 import Sidebar from '../Sidebar/Sidebar'
 import PostContent from '../PostContent/PostContent'
 import './styles.scss'
@@ -19,28 +19,33 @@ export const options = {
 }
 
 const AppWrapper = () => {
+  // local state
+  const [currentPost, setcurrentPost] = useState(null)
+
+  // queries
   const { data, loading, error } = useQuery(GET_POSTS, options)
+
+  // mutations
   const [createPost] = useMutation(CREATE_POST, {
     update(cache, { data }) {
       const newPostFromResponse = data?.createPost
-      let existingPosts = {}
-
-      try {
-        existingPosts = cache.readQuery({
-          query: GET_POSTS,
-          options,
-        })
-      } catch (error) {
-        console.log(error)
-      }
-
-      console.log(existingPosts)
-      /* cache.writeQuery({
+      let existingPosts = cache.readQuery({
         query: GET_POSTS,
+        ...options,
+      })
+
+      cache.writeQuery({
+        query: GET_POSTS,
+        ...options,
         data: {
-          posts: existingPosts?.post.concat(newPostFromResponse),
+          posts: {
+            __typename: 'PostsPage',
+            data: existingPosts?.posts.data.concat(newPostFromResponse),
+            meta: existingPosts.posts.meta,
+          },
         },
-      }) */
+      })
+      console.log('new order', existingPosts.posts.meta)
     },
   })
 
@@ -48,12 +53,10 @@ const AppWrapper = () => {
   if (error) return <h1>error</h1>
   if (!data) return <h1>not found</h1>
 
-  console.log(data)
-
   return (
     <div id='wrap'>
-      <Sidebar posts={data.posts.data} />
-      <PostContent action={createPost} />
+      <Sidebar posts={data.posts.data} handlePost={setcurrentPost} />
+      <PostContent action={createPost} current={currentPost} />
     </div>
   )
 }

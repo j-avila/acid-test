@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencilAlt, faSave } from '@fortawesome/free-solid-svg-icons'
+import { graphql } from '@apollo/react-hoc'
+import { GET_POST } from '../../queries'
 import './styles.scss'
 
-export default class PostContent extends Component {
+export class PostContent extends Component {
   static propTypes = {
     prop: PropTypes.object,
   }
@@ -37,7 +39,6 @@ export default class PostContent extends Component {
 
   handleInput = (field, event) => {
     const value = event.target.value
-
     this.setState(
       {
         postForm: {
@@ -50,8 +51,8 @@ export default class PostContent extends Component {
   }
 
   componentDidMount(prevProps) {
-    if (this.props.posts) {
-      const { title, content } = this.props.posts
+    if (this.props.current) {
+      const { title, content } = this.props.current
       this.setState({
         postForm: {
           title,
@@ -79,6 +80,8 @@ export default class PostContent extends Component {
 
   render() {
     const { postForm, editable } = this.state
+    const { data, loading, error } = this.props
+    console.log(this.props)
     return (
       <div id='postContent'>
         <header>
@@ -121,10 +124,13 @@ export default class PostContent extends Component {
             })
           }
         >
-          {' '}
-          guardar
+          {`guardar - ${data.id ? data.id : 'nope'}`}
         </button>
       </div>
     )
   }
 }
+
+export default graphql(GET_POST, { options: ({ id }) => ({ variables: { id } }) })(
+  PostContent
+)

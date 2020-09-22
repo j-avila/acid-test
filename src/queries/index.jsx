@@ -14,6 +14,16 @@ export const GET_POSTS = gql`
   }
 `
 
+export const GET_POST = gql`
+  query getPost($id: ID!) {
+    post(id: $id) {
+      id
+      title
+      body
+    }
+  }
+`
+
 export const CREATE_POST = gql`
   mutation CreatePost($input: CreatePostInput!) {
     createPost(input: $input) {

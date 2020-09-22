@@ -12,7 +12,7 @@ export default class Sidebar extends Component {
   }
 
   render() {
-    const { posts } = this.props
+    const { posts, handlePost } = this.props
     return (
       <aside>
         <img id='logo' src={require('../../assets/img/logo.svg')} alt='acid lab test' />
@@ -25,6 +25,7 @@ export default class Sidebar extends Component {
                 id={Number(post.id)}
                 title={post.title}
                 desc={post.description}
+                editHandler={handlePost}
               />
             ))
           ) : (
