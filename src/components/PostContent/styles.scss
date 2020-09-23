@@ -7,11 +7,15 @@
   article {
     display: flex;
     align-items: center;
+    text-align: left;
     h1,
-    p {
+    p,
+    textarea {
+      padding: 0 1rem;
       margin-top: 0 !important;
       align-self: flex-start;
     }
+
     svg {
       margin-right: 10px;
       color: $secondary;
@@ -22,6 +26,37 @@
         transition: 0.5s ease all;
         cursor: poitner;
       }
+    }
+  }
+  header {
+    margin-bottom: 1rem;
+    h1 {
+      line-height: 28px;
+    }
+    input {
+      font-size: 2em;
+      border-color: $background;
+    }
+  }
+
+  article {
+    textarea {
+      border-color: $background;
+    }
+  }
+  button {
+    width: 100%;
+    border: 0;
+    background: $secondary;
+    color: white;
+    padding: 0.5rem 1rem;
+    margin: 2rem auto;
+    border-radius: 20px;
+    transition: 0.5s all ease;
+    &:hover {
+      cursor: pointer;
+      transition: 0.5s all ease;
+      background: darken($secondary, 20%);
     }
   }
 }

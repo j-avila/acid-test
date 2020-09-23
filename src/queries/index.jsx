@@ -35,16 +35,16 @@ export const CREATE_POST = gql`
 `
 
 export const UPDATE_POST = gql`
-  mutation UpdatePost($id: String!, $post: Object!) {
-    updateTodo(id: $id, post: $post) {
+  mutation UpdatePost($id: ID!, $input: UpdatePostInput!) {
+    updatePost(id: $id, input: $input) {
       id
-      ...post
+      body
     }
   }
 `
 
 export const DELETE_POST = gql`
-  mutation deletePost($id: String!) {
+  mutation deletePost($id: ID!) {
     deletePost(id: $id)
   }
 `

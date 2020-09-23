@@ -52,12 +52,26 @@ export class PostContent extends Component {
   }
 
   editPost = (id) => {
-    const data = {
+    const { current } = this.props
+    const { title, body } = this.state.postForm
+    const newPost = {
       variables: {
+        id,
         input: { title: this.state.postForm.title, body: this.state.postForm.body },
       },
     }
-    id ? this.props.editHandler(id, data) : this.props.action(data)
+
+    const updatePost = {
+      variables: {
+        id: current,
+        input: {
+          title,
+          body,
+        },
+      },
+    }
+
+    id ? this.props.editHandler(updatePost) : this.props.action(newPost)
   }
 
   componentDidMount(prevProps) {
@@ -75,8 +89,21 @@ export class PostContent extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.current == prevProps.current) {
-      console.log(this.props.data.post)
+    // console.log(this.props.current, this.props.data)
+
+    if (this.props.current !== null && this.props.current !== prevProps.current) {
+      const { data } = this.props
+      this.props.data.post &&
+        this.setState({
+          postForm: {
+            id: this.props.current,
+            title: data.post.title,
+            body: data.post.body,
+          },
+        })
+    }
+
+    if (this.props.current === prevProps.current) {
       const { data } = this.props
       this.props.data.post != prevProps.data.post &&
         this.setState({
@@ -86,6 +113,15 @@ export class PostContent extends Component {
             body: data.post.body,
           },
         })
+    }
+
+    if (prevProps.current && !this.props.current) {
+      this.setState({
+        postForm: {
+          title: 'todo comeinza con un titulo',
+          content: 'inserta aqui tu contenido, haz click en el lapiz para comenzar',
+        },
+      })
     }
   }
 
@@ -113,6 +149,7 @@ export class PostContent extends Component {
             <input
               type='text'
               defaultValue={postForm.title}
+              placeholder='ingresa el titulo aqui'
               onChange={(e) => this.handleInput('title', e)}
             />
           ) : (
@@ -130,6 +167,7 @@ export class PostContent extends Component {
               rows='10'
               cols='50'
               defaultValue={postForm.body}
+              placeholder='aqui va el contenido del post'
               onChange={(e) => this.handleInput('body', e)}
             ></textarea>
           ) : (

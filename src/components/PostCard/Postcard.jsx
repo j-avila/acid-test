@@ -13,7 +13,7 @@ export default class Postcard extends Component {
   }
 
   render() {
-    const { id, title, desc, editHandler } = this.props
+    const { id, title, desc, editHandler, deleteHandler } = this.props
     return (
       <div id='card' data-post={id}>
         <h4>{title}</h4>
@@ -23,7 +23,12 @@ export default class Postcard extends Component {
             <FontAwesomeIcon icon={faEdit} className='but-edit' size='1x' />
           </button>
           <button type='button'>
-            <FontAwesomeIcon icon={faTrashAlt} className='but-delete' size='1x' />
+            <FontAwesomeIcon
+              icon={faTrashAlt}
+              className='but-delete'
+              size='1x'
+              onClick={() => deleteHandler({ variables: { id: id } })}
+            />
           </button>
         </div>
       </div>

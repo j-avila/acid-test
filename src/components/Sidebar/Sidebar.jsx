@@ -12,7 +12,7 @@ export default class Sidebar extends Component {
   }
 
   render() {
-    const { posts, handlePost } = this.props
+    const { posts, handlePost, deleteHanlder } = this.props
     return (
       <aside>
         <img id='logo' src={require('../../assets/img/logo.svg')} alt='acid lab test' />
@@ -26,6 +26,7 @@ export default class Sidebar extends Component {
                 title={post.title}
                 desc={post.description}
                 editHandler={handlePost}
+                deleteHandler={deleteHanlder}
               />
             ))
           ) : (
@@ -35,7 +36,7 @@ export default class Sidebar extends Component {
             </h1>
           )}
         </section>
-        <button tyoe='button' className='but-add' onClick={() => handlePost('new')}>
+        <button tyoe='button' className='but-add' onClick={() => handlePost(null)}>
           <FontAwesomeIcon icon={faPlus} size='2x' />
         </button>
       </aside>
