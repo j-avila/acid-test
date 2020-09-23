@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useQuery, useMutation } from '@apollo/client'
-import { GET_POSTS, CREATE_POST, GET_POST } from '../../queries'
+import { GET_POSTS, CREATE_POST, UPDATE_POST } from '../../queries'
 import Sidebar from '../Sidebar/Sidebar'
 import PostContent from '../PostContent/PostContent'
 import './styles.scss'
@@ -49,6 +49,8 @@ const AppWrapper = () => {
     },
   })
 
+  const [updatePost] = useMutation(UPDATE_POST)
+
   if (loading) return <Loader />
   if (error) return <h1>error</h1>
   if (!data) return <h1>not found</h1>
@@ -56,7 +58,7 @@ const AppWrapper = () => {
   return (
     <div id='wrap'>
       <Sidebar posts={data.posts.data} handlePost={setcurrentPost} />
-      <PostContent action={createPost} current={currentPost} />
+      <PostContent action={createPost} current={currentPost} editHandler={updatePost} />
     </div>
   )
 }

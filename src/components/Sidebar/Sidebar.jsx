@@ -35,7 +35,7 @@ export default class Sidebar extends Component {
             </h1>
           )}
         </section>
-        <button tyoe='button' className='but-add'>
+        <button tyoe='button' className='but-add' onClick={() => handlePost('new')}>
           <FontAwesomeIcon icon={faPlus} size='2x' />
         </button>
       </aside>

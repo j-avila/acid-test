@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencilAlt, faSave } from '@fortawesome/free-solid-svg-icons'
 import { graphql } from '@apollo/react-hoc'
-import { GET_POST } from '../../queries'
 import './styles.scss'
+import Loader from '../Loader/Loader'
+import { GET_POST } from '../../queries'
 
 export class PostContent extends Component {
   static propTypes = {
@@ -50,43 +51,61 @@ export class PostContent extends Component {
     )
   }
 
-  componentDidMount(prevProps) {
-    if (this.props.current) {
-      const { title, content } = this.props.current
-      this.setState({
-        postForm: {
-          title,
-          content,
-        },
-        initialData: {
-          title,
-          content,
-        },
-      })
-    } else {
-      this.setState({
-        postForm: {
-          title: 'todo comeinza con un titulo',
-          content: 'inserta aqui tu contenido, haz click en el lapiz para comenzar',
-        },
-        initialData: {
-          title: 'todo comeinza con un titulo',
-          content: 'inserta aqui tu contenido, haz click en el lapiz para comenzar',
-        },
-      })
+  editPost = (id) => {
+    const data = {
+      variables: {
+        input: { title: this.state.postForm.title, body: this.state.postForm.body },
+      },
     }
+    id ? this.props.editHandler(id, data) : this.props.action(data)
+  }
+
+  componentDidMount(prevProps) {
+    this.setState({
+      postForm: {
+        title: 'todo comeinza con un titulo',
+        content: 'inserta aqui tu contenido, haz click en el lapiz para comenzar',
+      },
+      initialData: {
+        title: 'todo comeinza con un titulo',
+        content: 'inserta aqui tu contenido, haz click en el lapiz para comenzar',
+      },
+    })
     document.addEventListener('keydown', this.escFunction, false)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.current == prevProps.current) {
+      console.log(this.props.data.post)
+      const { data } = this.props
+      this.props.data.post != prevProps.data.post &&
+        this.setState({
+          postForm: {
+            id: this.props.current,
+            title: data.post.title,
+            body: data.post.body,
+          },
+        })
+    }
   }
 
   render() {
     const { postForm, editable } = this.state
-    const { data, loading, error } = this.props
-    console.log(this.props)
+    const { data, loading, error, current } = this.props
+    // console.log(this.props)
+
+    if (loading) {
+      return <Loader />
+    }
+    if (error) {
+      return <h1>epa, algo salio mal!</h1>
+    }
+
     return (
       <div id='postContent'>
         <header>
           <FontAwesomeIcon
-            icon={this.state.editable === 'title' ? faSave : faPencilAlt}
+            icon={editable === 'title' ? faSave : faPencilAlt}
             size='1x'
             onClick={() => this.handleEditFields('title')}
           />
@@ -117,20 +136,14 @@ export class PostContent extends Component {
             <p>{postForm.body}</p>
           )}
         </article>
-        <button
-          onClick={() =>
-            this.props.action({
-              variables: { input: { title: postForm.title, body: postForm.body } },
-            })
-          }
-        >
-          {`guardar - ${data.id ? data.id : 'nope'}`}
+        <button onClick={() => this.editPost(current)}>
+          {`guardar - ${current ? `${current}` : 'nope'}`}
         </button>
       </div>
     )
   }
 }
 
-export default graphql(GET_POST, { options: ({ id }) => ({ variables: { id } }) })(
-  PostContent
-)
+export default graphql(GET_POST, {
+  options: ({ current }) => ({ variables: { id: current } }),
+})(PostContent)

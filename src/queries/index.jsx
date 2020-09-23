@@ -34,6 +34,15 @@ export const CREATE_POST = gql`
   }
 `
 
+export const UPDATE_POST = gql`
+  mutation UpdatePost($id: String!, $post: Object!) {
+    updateTodo(id: $id, post: $post) {
+      id
+      ...post
+    }
+  }
+`
+
 export const DELETE_POST = gql`
   mutation deletePost($id: String!) {
     deletePost(id: $id)
